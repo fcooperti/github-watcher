@@ -6,12 +6,13 @@ REPO=$(python3 -c "import yaml; c=yaml.safe_load(open('${CONFIG_FILE}')); print(
 BASE=$(basename "${CONFIG_FILE}" .yml)
 ALERTED_FILE="alerted/${BASE%-config}-alerted.txt"
 LAST_RUN_FILE="alerted/${BASE%-config}-last-run.txt"
-MAX_PRS=${MAX_PRS_PER_RUN:-25}
-
 GITHUB_AUTH=()
 if [ -n "$GITHUB_TOKEN" ]; then
   GITHUB_AUTH=(-H "Authorization: Bearer $GITHUB_TOKEN")
+  MAX_PRS=${MAX_PRS_PER_RUN:-500}
   echo "Using authenticated GitHub API"
+else
+  MAX_PRS=${MAX_PRS_PER_RUN:-25}
 fi
 
 touch "$ALERTED_FILE"
