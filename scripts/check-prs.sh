@@ -6,6 +6,7 @@ REPO=$(python3 -c "import yaml; c=yaml.safe_load(open('${CONFIG_FILE}')); print(
 BASE=$(basename "${CONFIG_FILE}" .yml)
 ALERTED_FILE="alerted/${BASE%-config}-alerted.txt"
 LAST_RUN_FILE="alerted/${BASE%-config}-last-run.txt"
+
 GITHUB_AUTH=()
 if [ -n "$GITHUB_TOKEN" ]; then
   GITHUB_AUTH=(-H "Authorization: Bearer $GITHUB_TOKEN")
@@ -17,24 +18,42 @@ fi
 
 touch "$ALERTED_FILE"
 
-# Use last-run timestamp as SINCE to survive downtime; on first run look back
-# initial_lookback_days from config (default 365) to catch all open PRs
+LOOKBACK_DAYS=$(python3 -c "import yaml; c=yaml.safe_load(open('${CONFIG_FILE}')); print(c.get('initial_lookback_days', 365))")
+DEFAULT_SINCE=$(date -u -d "${LOOKBACK_DAYS} days ago" '+%Y-%m-%dT%H:%M:%SZ')
+
+# Two separate cursors: created_at for new-PRs query, updated_at for updated-PRs query
+CREATED_SINCE=""
+UPDATED_SINCE=""
 if [ -f "$LAST_RUN_FILE" ]; then
-  SINCE=$(cat "$LAST_RUN_FILE")
-  echo "Resuming from last run: ${SINCE}"
-else
-  LOOKBACK_DAYS=$(python3 -c "import yaml; c=yaml.safe_load(open('${CONFIG_FILE}')); print(c.get('initial_lookback_days', 365))")
-  SINCE=$(date -u -d "${LOOKBACK_DAYS} days ago" '+%Y-%m-%dT%H:%M:%SZ')
-  echo "No last-run file found, scanning back ${LOOKBACK_DAYS} days to ${SINCE}"
+  CREATED_SINCE=$(grep "^created_since=" "$LAST_RUN_FILE" | cut -d= -f2)
+  UPDATED_SINCE=$(grep "^updated_since=" "$LAST_RUN_FILE" | cut -d= -f2)
 fi
 
-LATEST_TS=""
+if [ -z "$CREATED_SINCE" ]; then
+  CREATED_SINCE="$DEFAULT_SINCE"
+  echo "No created cursor found, scanning back ${LOOKBACK_DAYS} days to ${CREATED_SINCE}"
+else
+  echo "Resuming created cursor from: ${CREATED_SINCE}"
+fi
+
+if [ -z "$UPDATED_SINCE" ]; then
+  UPDATED_SINCE="$DEFAULT_SINCE"
+  echo "No updated cursor found, scanning back ${LOOKBACK_DAYS} days to ${UPDATED_SINCE}"
+else
+  echo "Resuming updated cursor from: ${UPDATED_SINCE}"
+fi
+
+LATEST_CREATED_TS=""
+LATEST_UPDATED_TS=""
 PROCESSED=0
 
-update_latest_ts() {
-  local ts="$1"
-  if [ -z "$LATEST_TS" ] || [[ "$ts" > "$LATEST_TS" ]]; then
-    LATEST_TS="$ts"
+# Update a named variable with ts if ts is newer than current value
+update_ts() {
+  local var="$1"
+  local ts="$2"
+  local current="${!var}"
+  if [ -z "$current" ] || [[ "$ts" > "$current" ]]; then
+    printf -v "$var" '%s' "$ts"
   fi
 }
 
@@ -91,11 +110,15 @@ process_pr() {
   fi
 }
 
+# ts_field: "created_at" or "updated_at" — which field to use for cursor tracking
+# ts_var:   name of the global variable to advance (LATEST_CREATED_TS or LATEST_UPDATED_TS)
 run_query() {
   local label="$1"
   local url="$2"
+  local ts_field="$3"
+  local ts_var="$4"
 
-  echo "Checking ${label} since ${SINCE} (limit: ${MAX_PRS} new PRs)..."
+  echo "Checking ${label} (limit: ${MAX_PRS} new PRs)..."
   local results
   results=$(curl -s "${GITHUB_AUTH[@]}" "$url")
 
@@ -103,37 +126,40 @@ run_query() {
     [ -z "$PR" ] && continue
 
     if is_alerted "$PR"; then
-      update_latest_ts "$TS"
+      update_ts "$ts_var" "$TS"
       echo "PR #${PR} already alerted, skipping"
       continue
     fi
 
     if [ "$PROCESSED" -ge "$MAX_PRS" ]; then
-      echo "Reached limit of ${MAX_PRS} new PRs, stopping. Will resume from ${LATEST_TS}."
+      echo "Reached limit of ${MAX_PRS} new PRs, stopping."
       return 1
     fi
 
     process_pr "$PR"
     PROCESSED=$((PROCESSED + 1))
-    update_latest_ts "$TS"
-  done < <(echo "$results" | jq -r '.items[] | [(.number | tostring), .updated_at] | @tsv')
+    update_ts "$ts_var" "$TS"
+  done < <(echo "$results" | jq -r ".items[] | [(.number | tostring), .${ts_field}] | @tsv")
 
   return 0
 }
 
-run_query "new PRs" \
-  "https://api.github.com/search/issues?q=repo:${REPO}+is:pr+is:open+created:>${SINCE}&sort=created&order=asc&per_page=100"
+run_query "new PRs since ${CREATED_SINCE}" \
+  "https://api.github.com/search/issues?q=repo:${REPO}+is:pr+is:open+created:>${CREATED_SINCE}&sort=created&order=asc&per_page=100" \
+  "created_at" \
+  "LATEST_CREATED_TS"
 
 if [ "$PROCESSED" -lt "$MAX_PRS" ]; then
-  run_query "updated PRs" \
-    "https://api.github.com/search/issues?q=repo:${REPO}+is:pr+is:open+updated:>${SINCE}&sort=updated&order=asc&per_page=100" || true
+  run_query "updated PRs since ${UPDATED_SINCE}" \
+    "https://api.github.com/search/issues?q=repo:${REPO}+is:pr+is:open+updated:>${UPDATED_SINCE}&sort=updated&order=asc&per_page=100" \
+    "updated_at" \
+    "LATEST_UPDATED_TS" || true
 fi
 
-# Save progress — use latest timestamp seen, or current time if nothing was found
-if [ -n "$LATEST_TS" ]; then
-  echo "$LATEST_TS" > "$LAST_RUN_FILE"
-  echo "Progress saved: cursor advanced to ${LATEST_TS}"
-else
-  date -u '+%Y-%m-%dT%H:%M:%SZ' > "$LAST_RUN_FILE"
-  echo "No PRs found, last-run updated to now"
-fi
+# Save both cursors; advance to now if a query found nothing (window is empty)
+NOW=$(date -u '+%Y-%m-%dT%H:%M:%SZ')
+{
+  echo "created_since=${LATEST_CREATED_TS:-$NOW}"
+  echo "updated_since=${LATEST_UPDATED_TS:-$NOW}"
+} > "$LAST_RUN_FILE"
+echo "Progress saved — created cursor: ${LATEST_CREATED_TS:-$NOW} | updated cursor: ${LATEST_UPDATED_TS:-$NOW}"
