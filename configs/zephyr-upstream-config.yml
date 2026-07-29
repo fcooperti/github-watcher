@@ -1,5 +1,6 @@
 # Repository to monitor for new/updated PRs
 repo: "zephyrproject-rtos/zephyr"
+initial_lookback_days: 365
 
 alerts:
   # Type 1: simple path patterns with email mapping
@@ -15,10 +16,16 @@ alerts:
     url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
     section: "TI SimpleLink Platforms"
     files_key: "files"
-    emails: $TI_SIMPLELINK_EMAILS
+    emails: $TI_GENERAL_LIST
 
   - type: yaml_section
     url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
-    section: "TI MSPM0 Platforms"
+    section: "TI MSPM Platforms"
     files_key: "files"
-    emails: $MSPM_EMAILS
+    emails: $TI_GENERAL_LIST
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI AM13 Platforms"
+    files_key: "files"
+    emails: $TI_GENERAL_LIST

@@ -2,7 +2,7 @@ name: Watch Upstream Zephyr PRs
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '7,37 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -11,19 +11,23 @@ permissions:
 jobs:
   check-new-prs:
     runs-on: ubuntu-latest
+    env:
+      # Keep generated Python bytecode out of the checkout.
+      PYTHONDONTWRITEBYTECODE: "1"
     steps:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+      - name: Install Python dependencies
+        run: python -m pip install PyYAML redmail
 
       - name: Find New PRs and Send Alerts
         env:
-          RESEND_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_RESEND_API_KEY }}
+          EMAIL_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_EMAIL_API_KEY }}
           RECEIVER_EMAILS: ${{ secrets.ZEPHYR_UPSTREAM_RECEIVER_EMAILS }}
           FROM_EMAIL: ${{ secrets.ZEPHYR_UPSTREAM_FROM_EMAIL }}
-        run: bash scripts/check-prs.sh configs/zephyr-upstream-config.yml
+          GITHUB_TOKEN: ${{ secrets.ZEPHYR_UPSTREAM_GITHUB_TOKEN }}
+        run: python scripts/check_prs.py configs/zephyr-upstream-config.yml
 
       - name: Commit updated alerted PRs list
         run: |
