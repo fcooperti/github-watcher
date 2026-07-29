@@ -1,0 +1,24 @@
+# Repository to monitor for new/updated PRs
+repo: "zephyrproject-rtos/zephyr"
+
+alerts:
+  # Type 1: simple path patterns with email mapping
+#  - type: paths
+#    emails: $CUSTOM_EMAILS
+#    patterns:
+#      - "drivers/**/*custom*"
+#      - "boards/custom/**"
+
+  # Type 2: parse a section from an external YAML file
+  # files_key is the key inside the section that holds the file patterns
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI SimpleLink Platforms"
+    files_key: "files"
+    emails: $TI_SIMPLELINK_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI MSPM0 Platforms"
+    files_key: "files"
+    emails: $MSPM_EMAILS
