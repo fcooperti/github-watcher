@@ -64,10 +64,12 @@ is_alerted() {
 process_pr() {
   local PR=$1
 
+  echo "  Fetching PR #${PR}..."
   PR_DETAIL=$(curl -s "${GITHUB_AUTH[@]}" "https://api.github.com/repos/${REPO}/pulls/${PR}")
 
   STATE=$(echo "$PR_DETAIL" | jq -r '.state')
   if [ "$STATE" != "open" ]; then
+    echo "  PR #${PR} is ${STATE}, skipping"
     return
   fi
 
@@ -75,16 +77,21 @@ process_pr() {
   AUTHOR=$(echo "$PR_DETAIL" | jq -r '.user.login')
   URL=$(echo "$PR_DETAIL" | jq -r '.html_url')
 
+  echo "  Checking PR #${PR}: \"${TITLE}\" by ${AUTHOR}"
+
   CHANGED_FILES=$(curl -s "${GITHUB_AUTH[@]}" \
     "https://api.github.com/repos/${REPO}/pulls/${PR}/files" \
     | jq -r '.[].filename')
+
+  FILE_COUNT=$(echo "$CHANGED_FILES" | grep -c . || true)
+  echo "  PR #${PR} touches ${FILE_COUNT} file(s)"
 
   EMAIL_MAP=$(echo "$CHANGED_FILES" | python3 scripts/map_emails.py "$CONFIG_FILE")
 
   EMAIL_COUNT=$(echo "$EMAIL_MAP" | jq 'length')
 
   if [ "$EMAIL_COUNT" -gt 0 ]; then
-    echo "Match found in PR #${PR} — alerting ${EMAIL_COUNT} recipient(s)"
+    echo "  Match found in PR #${PR} — alerting ${EMAIL_COUNT} recipient(s)"
     echo "$PR" >> "$ALERTED_FILE"
 
     while IFS= read -r EMAIL; do
@@ -105,8 +112,10 @@ process_pr() {
         -H "Content-Type: application/json" \
         -d "$BODY"
 
-      echo "Email sent to ${EMAIL} for PR #${PR}"
+      echo "  Email sent to ${EMAIL} for PR #${PR}"
     done < <(echo "$EMAIL_MAP" | jq -r 'keys[]')
+  else
+    echo "  PR #${PR}: no file pattern match"
   fi
 }
 
@@ -121,6 +130,11 @@ run_query() {
   echo "Checking ${label} (limit: ${MAX_PRS} new PRs)..."
   local results
   results=$(curl -s "${GITHUB_AUTH[@]}" "$url")
+  local total
+  total=$(echo "$results" | jq '.total_count // 0')
+  local returned
+  returned=$(echo "$results" | jq '.items | length')
+  echo "  Found ${total} total PR(s), processing up to ${returned} this batch"
 
   while IFS=$'\t' read -r PR TS; do
     [ -z "$PR" ] && continue
