@@ -1,5 +1,6 @@
 # Repository to monitor for new/updated PRs
 repo: "zephyrproject-rtos/zephyr"
+initial_lookback_days: 365
 
 alerts:
   # Type 1: simple path patterns with email mapping

@@ -17,13 +17,15 @@ fi
 
 touch "$ALERTED_FILE"
 
-# Use last-run timestamp as SINCE to survive downtime; fall back to 30 min ago
+# Use last-run timestamp as SINCE to survive downtime; on first run look back
+# initial_lookback_days from config (default 365) to catch all open PRs
 if [ -f "$LAST_RUN_FILE" ]; then
   SINCE=$(cat "$LAST_RUN_FILE")
   echo "Resuming from last run: ${SINCE}"
 else
-  SINCE=$(date -u -d '30 minutes ago' '+%Y-%m-%dT%H:%M:%SZ')
-  echo "No last-run file found, checking last 30 minutes"
+  LOOKBACK_DAYS=$(python3 -c "import yaml; c=yaml.safe_load(open('${CONFIG_FILE}')); print(c.get('initial_lookback_days', 365))")
+  SINCE=$(date -u -d "${LOOKBACK_DAYS} days ago" '+%Y-%m-%dT%H:%M:%SZ')
+  echo "No last-run file found, scanning back ${LOOKBACK_DAYS} days to ${SINCE}"
 fi
 
 LATEST_TS=""

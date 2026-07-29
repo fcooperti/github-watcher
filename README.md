@@ -117,6 +117,7 @@ Each config file lives in `configs/` and follows this structure:
 ```yaml
 # GitHub repo to monitor (owner/repo)
 repo: "owner/repo-name"
+initial_lookback_days: 365  # how far back to scan on first run (default: 365)
 
 alerts:
   # Alert type 1 — static path patterns
