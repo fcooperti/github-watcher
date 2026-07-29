@@ -1,24 +1,2385 @@
-# Repository to monitor for new/updated PRs
 repo: "zephyrproject-rtos/zephyr"
 
 alerts:
-  # Type 1: simple path patterns with email mapping
-#  - type: paths
-#    emails: $CUSTOM_EMAILS
-#    patterns:
-#      - "drivers/**/*custom*"
-#      - "boards/custom/**"
 
-  # Type 2: parse a section from an external YAML file
-  # files_key is the key inside the section that holds the file patterns
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ACPI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ADI Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ARC arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ARM Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ARM SiP SVC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ARM arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ARM64 arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ASPEED Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Aesc Platform"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Alif Semiconductor Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Allwinner Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Ambiq Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "AndesTech Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Antmicro platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Arduino Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Authentication"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Authentication: FIDO2"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Base OS"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "BeagleBoard Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Benchmarks"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Binary Descriptors"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Biometrics Drivers"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth Audio"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth Classic"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth Controller"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth HCI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth Host"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth ISO"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth Mesh"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bluetooth Qualification"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Board/SoC configuration"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Boards/SoCs"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bootloaders"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Bouffalolab Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Broadcom Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Build Dashboard"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Build system"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "C library"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "C++"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "CMSIS API layer"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "CMSIS-DSP integration"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "CMSIS-NN integration"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "CPU Frequency Scaling"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "CRC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Cache"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Coding Guidelines"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Common Architecture Interface"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Console"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Continuous Integration"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "DAP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "DFU"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "DSP subsystem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Debug"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Debug: Symtab"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Demand Paging"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Device Driver Model"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Devicetree"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Devicetree Bindings"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Disk"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Display drivers"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Documentation"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Documentation Infrastructure"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: ADC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Audio"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Aux display"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Buzzer"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: CAN"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: CRC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Charger"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Clock Monitor"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Clock control"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Comparator"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Console"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Coredump"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Counter"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Crypto"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: DAC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: DAI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: DALI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: DMA"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Debug"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Devmux"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: EDAC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: EEPROM"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: ESPI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Entropy"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Ethernet"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: FPGA"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Firmware"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Flash"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Fuel Gauge"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: GNSS"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: GPIO"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: HW Info"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Haptics"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Hardware Spinlock"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: I2C"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: I2S"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: I3C"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: IEEE 802.15.4"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: IPM"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: LED"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: LED Strip"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: MEMC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: MFD"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: MIPI DBI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: MIPI-DSI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: MSPI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Mbox"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Memory Management"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Modem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Opamp"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PCI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PECI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PM CPU ops"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PS2"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PSI5"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PTP Clock"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: PWM"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Pin Control"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: RTC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Regulators"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Reset"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Retained Memory"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: SDHC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: SENT"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: SMBus"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: SPI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Sensors"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Serial/UART"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Stepper"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Syscon"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: System timer"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Time Aware GPIO"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: VIRTIO"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Video"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Virtualization"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: W1"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Watchdog"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Wi-Fi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Wi-Fi as nRF Wi-Fi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Wi-Fi es-WiFi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Wuc"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: Wurth Elektronik Sensors"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Drivers: bbram"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "EC Host Commands"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Emulation"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Enclustra Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Espressif Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Ezurio platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Filesystems"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Formatted Output"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "GD32 Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Gaisler Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Gardena Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Google Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Hash Utilities"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Heap Management"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Heimann Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "IPC"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "ITE Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Infineon Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Input"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Instrumentation Subsystem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Intel Platforms (Agilex)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Intel Platforms (ISH)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Intel Platforms (X86)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Intel Platforms (Xtensa)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Interrupt Handling"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "JSON Web Token"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Kconfig"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Kernel"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Key-Value Storage Systems"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Linkable Loadable Extensions"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Linker Scripts"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Linters and Static Analyzers"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "LiteX Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Little FS"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "LoRa and LoRaWAN"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "LoRaWAN native backend"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Logging"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "M5Stack Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "MAINTAINERS file"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "MCU Manager"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "MIPS arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Memory Management"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Microchip MEC Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Microchip PIC32 Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Microchip RISC-V Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Microchip SAM Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Microchip SmartFusion2 platform"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Microchip Standalone Devices"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Modbus"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Modem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NEORV32 platform"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NVMEM"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NXP Platform Drivers"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NXP Platform Wireless"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NXP Platforms (MCU)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NXP Platforms (MPU)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "NXP Platforms (S32)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Native_sim and POSIX arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking Buffers"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: BSD sockets"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: CoAP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: Connection Manager"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: DHCPv4"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: DSA"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: Ethernet"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: HTTP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: LWM2M"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: MCP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: MQTT"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: MQTT-SN"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: Native IEEE 802.15.4"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: OCPP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: OpenThread"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: PTP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: Wi-Fi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Networking: gPTP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Nuvoton NPCM Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Nuvoton NPCX Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Nuvoton Numicro Numaker Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "OSDP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "OTP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Octavo Systems Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Open AMP"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "OpenRISC Arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "OpenTitan Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "PHYTEC Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "PMCI"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "POSIX API layer"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Panasonic Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Peregrine Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Power management"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "QNX Hypervisor Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Quicklogic Platform"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "RISCV arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "RTIO"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "RX arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Random"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Raspberry Pi Pico Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Realtek Ameba Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Realtek Bee Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Realtek EC Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Realtek Fingerprint Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Release"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Renesas R-Car Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Renesas RA Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Renesas RX Platform"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Renesas RZ Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Renesas SmartBond Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Retention"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Rockchip Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "SPARC arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "SPDX Tooling"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "STM32 Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "STM32 Platforms (MPU)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "STM32 Platforms (Wireless)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Safety"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Samples"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Secure storage"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Security"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Seeed Studio Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Sensor Subsystem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Sensry Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Settings"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Shell"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Shields"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "SiFli SF32LB Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Silabs Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Silabs SiM3U Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Space Cubics Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "State machine framework"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Stats"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Storage"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Storage ZMS"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Synopsys Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Sysbuild"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TDK Sensors"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI AM13 Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI K3 Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI MSPM Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
   - type: yaml_section
     url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
     section: "TI SimpleLink Platforms"
     files_key: "files"
-    emails: $TI_SIMPLELINK_EMAILS
+    emails: $TEST_EMAILS
 
   - type: yaml_section
     url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
-    section: "TI MSPM0 Platforms"
+    section: "TI Stellaris Platforms"
     files_key: "files"
-    emails: $MSPM_EMAILS
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Task Watchdog"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Test Framework (Ztest)"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Testing"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Testing with Renode"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Tests"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Toolchain ARC MWDT"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Toolchain IAR"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Toolchain Integration"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Toolchain arm compiler 6"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Toolchain oneApi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Tracing"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Trenz Electronic Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Twister"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "USB"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "USB-C"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "UUID"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Userspace"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Utilities"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "VFS"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Video Subsystem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "WCH Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: acpica"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_base"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_channel_NtNcable"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_channel_multiatt"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_device_WLAN_actmod"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_device_burst_interferer"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_device_playback"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_libPhyComv1"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_modem_BLE_simple"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_modem_magic"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_2G4_phy_v1"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: babblesim_ext_libCryptov1"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: bsim"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: chre"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: cmsis"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: cmsis-dsp"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: cmsis-nn"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: cmsis_6"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: dhara"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: edtt"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: fatfs"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_adi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_afbr"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_ambiq"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_atmel"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_bouffalolab"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_cypress"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_espressif"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_ethos_u"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_gigadevice"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_infineon"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_intel"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_microchip"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_nordic"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_nuvoton"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_nxp"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_openisa"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_quicklogic"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_realtek"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_renesas"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_rpi_pico"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_sifli"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_silabs"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_st"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_stm32"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_tdk"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_telink"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_ti"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_wch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_wurthelektronik"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hal_xtensa"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: hostap"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: liblc3"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: libmctp"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: libmetal"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: libsbc"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: littlefs"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: lora-basics-modem"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: loramac-node"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: lvgl"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: mbedtls"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: mcuboot"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: mipi-sys-t"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: mldsa-native"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: nanopb"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: net-tools"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: nrf_hw_models"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: nrf_wifi"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: open-amp"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: openthread"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: percepio"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: picolibc"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: psa-arch-tests"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: segger"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: tf-m-tests"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: tf-psa-crypto"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: tflite-micro"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: trusted-firmware-a"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: trusted-firmware-m"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: uoscore-uedhoc"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: zcbor"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: zephyr-lang-rust"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "West project: zephyr-xenlib"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Wiki"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Wurth Elektronik Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Xen Platform"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Xilinx Platforms"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "Xtensa arch"
+    files_key: "files"
+    emails: $TEST_EMAILS
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "mgmt: updatehub"
+    files_key: "files"
+    emails: $TEST_EMAILS
