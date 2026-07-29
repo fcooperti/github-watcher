@@ -20,6 +20,6 @@ alerts:
 
   - type: yaml_section
     url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
-    section: "TI MSPM0 Platforms"
+    section: "TI MSPM Platforms"
     files_key: "files"
     emails: $MSPM_EMAILS
