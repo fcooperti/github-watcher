@@ -8,6 +8,12 @@ ALERTED_FILE="alerted/${BASE%-config}-alerted.txt"
 LAST_RUN_FILE="alerted/${BASE%-config}-last-run.txt"
 MAX_PRS=${MAX_PRS_PER_RUN:-25}
 
+GITHUB_AUTH=()
+if [ -n "$GITHUB_TOKEN" ]; then
+  GITHUB_AUTH=(-H "Authorization: Bearer $GITHUB_TOKEN")
+  echo "Using authenticated GitHub API"
+fi
+
 touch "$ALERTED_FILE"
 
 # Use last-run timestamp as SINCE to survive downtime; fall back to 30 min ago
@@ -36,7 +42,7 @@ is_alerted() {
 process_pr() {
   local PR=$1
 
-  PR_DETAIL=$(curl -s "https://api.github.com/repos/${REPO}/pulls/${PR}")
+  PR_DETAIL=$(curl -s "${GITHUB_AUTH[@]}" "https://api.github.com/repos/${REPO}/pulls/${PR}")
 
   STATE=$(echo "$PR_DETAIL" | jq -r '.state')
   if [ "$STATE" != "open" ]; then
@@ -47,7 +53,7 @@ process_pr() {
   AUTHOR=$(echo "$PR_DETAIL" | jq -r '.user.login')
   URL=$(echo "$PR_DETAIL" | jq -r '.html_url')
 
-  CHANGED_FILES=$(curl -s \
+  CHANGED_FILES=$(curl -s "${GITHUB_AUTH[@]}" \
     "https://api.github.com/repos/${REPO}/pulls/${PR}/files" \
     | jq -r '.[].filename')
 
@@ -88,7 +94,7 @@ run_query() {
 
   echo "Checking ${label} since ${SINCE} (limit: ${MAX_PRS} new PRs)..."
   local results
-  results=$(curl -s "$url")
+  results=$(curl -s "${GITHUB_AUTH[@]}" "$url")
 
   while IFS=$'\t' read -r PR TS; do
     [ -z "$PR" ] && continue

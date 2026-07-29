@@ -24,6 +24,7 @@ jobs:
           RECEIVER_EMAILS: ${{ secrets.ZEPHYR_UPSTREAM_RECEIVER_EMAILS }}
           FROM_EMAIL: ${{ secrets.ZEPHYR_UPSTREAM_FROM_EMAIL }}
           MAX_PRS_PER_RUN: ${{ vars.ZEPHYR_UPSTREAM_MAX_PRS_PER_RUN }}
+          GITHUB_TOKEN: ${{ secrets.ZEPHYR_UPSTREAM_GITHUB_TOKEN }}
         run: bash scripts/check-prs.sh configs/zephyr-upstream-config.yml
 
       - name: Commit updated alerted PRs list
