@@ -112,7 +112,7 @@ run_query() {
 }
 
 run_query "new PRs" \
-  "https://api.github.com/search/issues?q=repo:${REPO}+is:pr+created:>${SINCE}&sort=created&order=asc&per_page=100"
+  "https://api.github.com/search/issues?q=repo:${REPO}+is:pr+is:open+created:>${SINCE}&sort=created&order=asc&per_page=100"
 
 if [ "$PROCESSED" -lt "$MAX_PRS" ]; then
   run_query "updated PRs" \
