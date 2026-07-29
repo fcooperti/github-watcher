@@ -92,9 +92,9 @@ run_query() {
 
   while IFS=$'\t' read -r PR TS; do
     [ -z "$PR" ] && continue
-    update_latest_ts "$TS"
 
     if is_alerted "$PR"; then
+      update_latest_ts "$TS"
       echo "PR #${PR} already alerted, skipping"
       continue
     fi
@@ -106,6 +106,7 @@ run_query() {
 
     process_pr "$PR"
     PROCESSED=$((PROCESSED + 1))
+    update_latest_ts "$TS"
   done < <(echo "$results" | jq -r '.items[] | [(.number | tostring), .updated_at] | @tsv')
 
   return 0
