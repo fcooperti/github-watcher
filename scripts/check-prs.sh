@@ -63,6 +63,7 @@ is_alerted() {
 
 process_pr() {
   local PR=$1
+  local CREATED_AT="${2%T*}"  # trim to date only: 2025-08-19
 
   PR_DETAIL=$(curl -s "${GITHUB_AUTH[@]}" "https://api.github.com/repos/${REPO}/pulls/${PR}")
 
@@ -84,7 +85,7 @@ process_pr() {
   EMAIL_COUNT=$(echo "$EMAIL_MAP" | jq 'length')
 
   if [ "$EMAIL_COUNT" -gt 0 ]; then
-    echo "PR #${PR}: match found — alerting ${EMAIL_COUNT} recipient(s)"
+    echo "PR #${PR} (${CREATED_AT}): match found — alerting ${EMAIL_COUNT} recipient(s)"
     echo "$PR" >> "$ALERTED_FILE"
 
     while IFS= read -r EMAIL; do
@@ -108,7 +109,7 @@ process_pr() {
       echo "  Email sent to ${EMAIL} for PR #${PR}"
     done < <(echo "$EMAIL_MAP" | jq -r 'keys[]')
   else
-    echo "PR #${PR}: no match"
+    echo "PR #${PR} (${CREATED_AT}): no match"
   fi
 }
 
@@ -124,12 +125,12 @@ run_query() {
   local results
   results=$(curl -s "${GITHUB_AUTH[@]}" "$url")
 
-  while IFS=$'\t' read -r PR TS; do
+  while IFS=$'\t' read -r PR TS CREATED_AT; do
     [ -z "$PR" ] && continue
 
     if is_alerted "$PR"; then
       update_ts "$ts_var" "$TS"
-      echo "PR #${PR} already alerted, skipping"
+      echo "PR #${PR} (${CREATED_AT%T*}) already alerted, skipping"
       continue
     fi
 
@@ -138,10 +139,10 @@ run_query() {
       return 1
     fi
 
-    process_pr "$PR"
+    process_pr "$PR" "$CREATED_AT"
     PROCESSED=$((PROCESSED + 1))
     update_ts "$ts_var" "$TS"
-  done < <(echo "$results" | jq -r ".items[] | [(.number | tostring), .${ts_field}] | @tsv")
+  done < <(echo "$results" | jq -r ".items[] | [(.number | tostring), .${ts_field}, .created_at] | @tsv")
 
   return 0
 }
