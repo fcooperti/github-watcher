@@ -69,11 +69,33 @@ alerted/
 
 Each watched repository uses its own set of secrets, prefixed with the repo identifier. For the upstream Zephyr watcher the secrets are:
 
-| Secret | Description |
-|---|---|
-| `ZEPHYR_UPSTREAM_RESEND_API_KEY` | Resend API key used to send emails |
-| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Sender address (must be a verified Resend domain) |
-| `ZEPHYR_UPSTREAM_RECEIVER_EMAILS` | YAML block mapping group keys to recipient lists (see format below) |
+| Secret | Required | Description |
+|---|---|---|
+| `ZEPHYR_UPSTREAM_RESEND_API_KEY` | Yes | Resend API key used to send emails |
+| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Yes | Sender address (must be a verified Resend domain) |
+| `ZEPHYR_UPSTREAM_RECEIVER_EMAILS` | Yes | YAML block mapping group keys to recipient lists (see format below) |
+| `ZEPHYR_UPSTREAM_GITHUB_TOKEN` | No | GitHub PAT for higher API rate limits (see below) |
+
+### GitHub Personal Access Token (optional but recommended)
+
+Without a token the GitHub API allows **60 requests/hour**, which limits processing to ~25 PRs per run. With a token this rises to **5,000 requests/hour**, allowing you to raise `ZEPHYR_UPSTREAM_MAX_PRS_PER_RUN` significantly and catch up from downtime much faster.
+
+**How to create a GitHub PAT:**
+
+1. Go to [github.com](https://github.com) and sign in
+2. Click your profile picture (top right) → **Settings**
+3. Scroll to the bottom of the left sidebar → **Developer settings**
+4. Select **Personal access tokens → Tokens (classic)**
+5. Click **Generate new token → Generate new token (classic)**
+6. Give it a descriptive name (e.g. `github-watcher`)
+7. Set an expiration — choose one that fits your maintenance schedule (90 days, 1 year, or no expiration)
+8. Under **Select scopes**, check only **`public_repo`** under the `repo` section — this is the minimum needed to read PRs and files on public repositories
+9. Click **Generate token** at the bottom
+10. **Copy the token immediately** — GitHub will not show it again
+
+Add the token as a secret named `ZEPHYR_UPSTREAM_GITHUB_TOKEN` in **Settings > Secrets and variables > Actions > New repository secret**.
+
+> The token only needs read access to public repositories, so `public_repo` scope is sufficient. Do not grant broader permissions than needed.
 
 ### RECEIVER_EMAILS format
 
@@ -159,6 +181,7 @@ In this repository's **Settings > Secrets and variables > Actions**, add:
 - `<REPO_NAME>_RESEND_API_KEY`
 - `<REPO_NAME>_FROM_EMAIL`
 - `<REPO_NAME>_RECEIVER_EMAILS` (using the YAML format described above)
+- `<REPO_NAME>_GITHUB_TOKEN` (optional — GitHub PAT for higher rate limits, see [GitHub Personal Access Token](#github-personal-access-token-optional-but-recommended))
 
 ### 4. Test it
 
