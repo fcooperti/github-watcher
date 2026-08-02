@@ -15,12 +15,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Install PyYAML
-        run: pip install pyyaml
+      - name: Install Python dependencies
+        run: pip install pyyaml redmail
 
       - name: Find New PRs and Send Alerts
         env:
-          RESEND_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_RESEND_API_KEY }}
+          EMAIL_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_EMAIL_API_KEY }}
           RECEIVER_EMAILS: ${{ secrets.ZEPHYR_UPSTREAM_RECEIVER_EMAILS }}
           FROM_EMAIL: ${{ secrets.ZEPHYR_UPSTREAM_FROM_EMAIL }}
           MAX_PRS_PER_RUN: ${{ vars.ZEPHYR_UPSTREAM_MAX_PRS_PER_RUN }}

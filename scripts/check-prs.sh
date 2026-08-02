@@ -101,10 +101,7 @@ process_pr() {
         --arg text "$TEXT" \
         '{from: $from, to: $to, subject: $subject, text: $text}')
 
-      curl -s -X POST https://api.resend.com/emails \
-        -H "Authorization: Bearer $RESEND_API_KEY" \
-        -H "Content-Type: application/json" \
-        -d "$BODY"
+      echo "$BODY" | python3 scripts/send_email.py
 
       echo "  Email sent to ${EMAIL} for PR #${PR}"
     done < <(echo "$EMAIL_MAP" | jq -r 'keys[]')

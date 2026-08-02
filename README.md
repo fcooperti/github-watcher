@@ -9,7 +9,7 @@ Watches pull requests on repositories you don't own and sends email alerts when 
 ### Prerequisites
 
 - A GitHub account to host this repository
-- A [Resend](https://resend.com) account with a verified sending domain and an API key
+- An SMTP-capable email provider account, such as Resend or Gmail/Google Workspace
 
 ### Initial setup
 
@@ -44,7 +44,7 @@ Each watched repository gets:
 - A workflow file in `.github/workflows/` that runs the check on a schedule
 - A set of GitHub secrets scoped to that repository
 
-The shared script `scripts/check-prs.sh` does the actual work — it polls the GitHub API for new and recently updated PRs, checks changed files against your configured patterns, and sends email alerts via [Resend](https://resend.com).
+The shared script `scripts/check-prs.sh` does the actual work — it polls the GitHub API for new and recently updated PRs, checks changed files against your configured patterns, and sends email alerts through [Redmail](https://red-mail.readthedocs.io/) over SMTP. Resend and Gmail can both be selected with environment configuration.
 
 A file named `alerted-<config-name>.txt` is committed back to the repo after each run to prevent duplicate alerts across runs.
 
@@ -59,6 +59,7 @@ configs/
   zephyr-upstream-workflow.yml   # one workflow per watched repo
 scripts/
   check-prs.sh                   # shared, not modified per repo
+  send_email.py                  # Redmail SMTP sender used by check-prs.sh
 alerted/
   zephyr-upstream-alerted.txt    # auto-generated, do not edit
 ```
@@ -71,10 +72,47 @@ Each watched repository uses its own set of secrets, prefixed with the repo iden
 
 | Secret | Required | Description |
 |---|---|---|
-| `ZEPHYR_UPSTREAM_RESEND_API_KEY` | Yes | Resend API key used to send emails |
-| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Yes | Sender address (must be a verified Resend domain) |
+| `ZEPHYR_UPSTREAM_EMAIL_API_KEY` | Yes | Email provider auth secret. For Resend this is the Resend API key. For Gmail this is the SMTP auth secret/app password. |
+| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Yes | Sender address; must be allowed by the selected email provider |
 | `ZEPHYR_UPSTREAM_RECEIVER_EMAILS` | Yes | YAML block mapping group keys to recipient lists (see format below) |
 | `ZEPHYR_UPSTREAM_GITHUB_TOKEN` | No | GitHub PAT for higher API rate limits (see below) |
+
+### Email provider configuration
+
+Email delivery uses Redmail over SMTP. The script reads a JSON email payload from `check-prs.sh`, configures Redmail from `FROM_EMAIL` and `EMAIL_API_KEY`, and sends one plaintext email per recipient.
+
+The provider is detected automatically from `FROM_EMAIL`:
+
+- If `FROM_EMAIL` uses `gmail.com` or `googlemail.com`, the script uses Gmail SMTP.
+- Any other sender domain uses Resend SMTP. This keeps custom verified Resend domains simple.
+
+No provider name, host, port, SMTP username, or SMTP password variable is required.
+
+For Resend:
+
+```yaml
+EMAIL_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_EMAIL_API_KEY }}
+FROM_EMAIL: ${{ secrets.ZEPHYR_UPSTREAM_FROM_EMAIL }}
+```
+
+For Gmail or Google Workspace SMTP, matching this curl shape:
+
+```bash
+curl --ssl-reqd \
+  --url "smtp://smtp.gmail.com:587" \
+  --user "sender@gmail.com:<secret>" \
+  --mail-from "sender@gmail.com" \
+  --mail-rcpt "recipient@example.com"
+```
+
+configure:
+
+```yaml
+EMAIL_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_EMAIL_API_KEY }}
+FROM_EMAIL: ${{ secrets.ZEPHYR_UPSTREAM_FROM_EMAIL }}
+```
+
+The `EMAIL_API_KEY` value is the same SMTP auth secret you pass after the colon in `curl --user`.
 
 ### GitHub Personal Access Token (optional but recommended)
 
@@ -170,7 +208,7 @@ Example workflow `env:` block for a repo named `linux-kernel`:
 
 ```yaml
 env:
-  RESEND_API_KEY: ${{ secrets.LINUX_KERNEL_RESEND_API_KEY }}
+  EMAIL_API_KEY: ${{ secrets.LINUX_KERNEL_EMAIL_API_KEY }}
   RECEIVER_EMAILS: ${{ secrets.LINUX_KERNEL_RECEIVER_EMAILS }}
   FROM_EMAIL: ${{ secrets.LINUX_KERNEL_FROM_EMAIL }}
 ```
@@ -179,7 +217,7 @@ env:
 
 In this repository's **Settings > Secrets and variables > Actions**, add:
 
-- `<REPO_NAME>_RESEND_API_KEY`
+- `<REPO_NAME>_EMAIL_API_KEY`
 - `<REPO_NAME>_FROM_EMAIL`
 - `<REPO_NAME>_RECEIVER_EMAILS` (using the YAML format described above)
 - `<REPO_NAME>_GITHUB_TOKEN` (optional — GitHub PAT for higher rate limits, see [GitHub Personal Access Token](#github-personal-access-token-optional-but-recommended))
