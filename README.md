@@ -18,10 +18,10 @@ For the Zephyr watcher, configure these repository secrets:
 
 | Secret | Required | Purpose |
 |---|---:|---|
-| `ZEPHYR_UPSTREAM_EMAIL_API_KEY` | Yes | Resend API key or Gmail SMTP app password. |
-| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Yes | Sender address. |
-| `ZEPHYR_UPSTREAM_RECEIVER_EMAILS` | Yes | YAML recipient-group mapping. |
-| `ZEPHYR_UPSTREAM_GITHUB_TOKEN` | No | Increases GitHub API capacity. |
+| `ZEPHYR_UPSTREAM_EMAIL_API_KEY` | Yes | Resend API key or Gmail SMTP app password. Store the raw secret value only, with no YAML key name, quotes, or `Bearer` prefix. |
+| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Yes | Sender address, preferably a plain email address such as `alerts@example.com`. |
+| `ZEPHYR_UPSTREAM_RECEIVER_EMAILS` | Yes | YAML recipient-group mapping. See the required format below. |
+| `ZEPHYR_UPSTREAM_GITHUB_TOKEN` | No | GitHub token for higher API capacity. Store only the raw token value, not `Bearer <token>`. |
 
 The workflow maps those repository-specific secrets to the generic names the script expects:
 
@@ -33,6 +33,48 @@ GITHUB_TOKEN: ${{ secrets.ZEPHYR_UPSTREAM_GITHUB_TOKEN }}
 ```
 
 To add another watcher, copy the workflow and config, use a different config filename, and give it its own secret names. The filename determines the `alerted/<name>-*.txt` state files.
+
+## Secret value format
+
+GitHub secret values should be entered as the value only. Do not include shell syntax such as `KEY=value`, surrounding quotes, or YAML block markers unless those characters are part of the actual secret.
+
+`ZEPHYR_UPSTREAM_EMAIL_API_KEY` maps to `EMAIL_API_KEY`. Its value is sent to SMTP as the password:
+
+```text
+re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+For Gmail, use a Gmail app password instead. If the provider displays the app password in spaced groups for readability, remove those grouping spaces unless the provider explicitly says they are part of the password.
+
+`ZEPHYR_UPSTREAM_FROM_EMAIL` maps to `FROM_EMAIL`. The domain selects the SMTP provider:
+
+```text
+alerts@example.com
+```
+
+Use a Gmail or Googlemail address to send through Gmail SMTP. Any other domain sends through Resend SMTP, so that sender address must be valid for the Resend account.
+
+`ZEPHYR_UPSTREAM_RECEIVER_EMAILS` maps to `RECEIVER_EMAILS`. A single secret supports multiple recipient groups because its value is parsed as YAML mapping text. Group names do not include the leading `$`; the watcher config adds `$` when referencing the group. Recipient addresses inside each group are separated with semicolons:
+
+```yaml
+TI_GENERAL_LIST: alice@example.com; bob@example.com
+CUSTOM_EMAILS: carla@example.com
+RELEASE_REVIEWERS: dana@example.com; erin@example.com; frank@example.com
+```
+
+Any alert rule can reference one group from that same secret:
+
+```yaml
+emails: $TI_GENERAL_LIST
+```
+
+For multiple recipients in one group, keep them in one YAML value and separate them with semicolons. The script splits recipient lists only on semicolons.
+
+`ZEPHYR_UPSTREAM_GITHUB_TOKEN` maps to `GITHUB_TOKEN`. It is optional. If set, store the raw GitHub token only:
+
+```text
+github_pat_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
 
 ## Script
 
