@@ -29,3 +29,9 @@ alerts:
     section: "TI AM13 Platforms"
     files_key: "files"
     emails: $TI_GENERAL_LIST
+
+  - type: yaml_section
+    url: "https://raw.githubusercontent.com/zephyrproject-rtos/zephyr/main/MAINTAINERS.yml"
+    section: "TI K3 Platforms"
+    files_key: "files"
+    emails: $TI_GENERAL_LIST
