@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """Alert on newly created GitHub PRs whose files match a watcher config.
 
+This intentionally stays as one script: config and state are plain YAML/text files,
+and GitHub Actions is only the scheduler. The run flow is:
+  find new PRs -> match files -> send email -> save state on full success
+
 Required environment variables:
   EMAIL_API_KEY     Resend API key or Gmail SMTP app password
   FROM_EMAIL        Sender address; gmail.com selects Gmail, all else selects Resend
@@ -34,11 +38,14 @@ from redmail import EmailSender
 GITHUB_API = "https://api.github.com"
 REQUEST_TIMEOUT_SECONDS = 30
 SEARCH_PAGE_SIZE = 100
+GMAIL_DOMAINS = {"gmail.com", "googlemail.com"}
 
 
 class WatcherError(RuntimeError):
     """A configuration, GitHub, or email delivery error."""
 
+
+# Configuration and durable state
 
 def utc_now() -> str:
     return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -99,6 +106,7 @@ def load_state(alerted_file: Path, last_run_file: Path, initial_lookback_days: i
 
 
 def atomic_write(path: Path, content: str) -> None:
+    # Replacing a completed temporary file avoids leaving a half-written state file.
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary_path = path.with_name(f".{path.name}.tmp")
     temporary_path.write_text(content, encoding="utf-8")
@@ -111,6 +119,8 @@ def save_state(alerted_file: Path, last_run_file: Path, alerted: set[str], creat
     atomic_write(last_run_file, f"created_since={created_since}\n")
 
 
+# GitHub API
+
 def github_json(url: str, github_token: str) -> Any:
     headers = {
         "Accept": "application/vnd.github+json",
@@ -120,6 +130,8 @@ def github_json(url: str, github_token: str) -> Any:
     if github_token:
         headers["Authorization"] = f"Bearer {github_token}"
 
+    # Retry temporary service/network failures, but never retry authentication
+    # or other permanent API errors.
     for attempt in range(3):
         try:
             request = Request(url, headers=headers)
@@ -181,6 +193,8 @@ def pr_details(repo: str, pr_number: int, github_token: str) -> dict[str, Any]:
     return detail
 
 
+# Recipient and file matching
+
 def receiver_groups() -> dict[str, str]:
     raw_groups = require_env("RECEIVER_EMAILS")
     try:
@@ -208,6 +222,8 @@ def resolve_recipients(reference: str, groups: dict[str, str]) -> list[str]:
 
 
 def matches(filepath: str, pattern: str) -> bool:
+    # A trailing slash means "any file below this directory". All other rules
+    # use normal shell-style matching, such as drivers/**/foo.c.
     if pattern.endswith("/"):
         pattern_parts = pattern.rstrip("/").split("/")
         path_parts = filepath.split("/")
@@ -217,6 +233,19 @@ def matches(filepath: str, pattern: str) -> bool:
     return fnmatch.fnmatch(filepath, pattern)
 
 
+def fetch_yaml(url: str, yaml_cache: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    if url not in yaml_cache:
+        try:
+            with urlopen(url, timeout=REQUEST_TIMEOUT_SECONDS) as response:
+                loaded = yaml.safe_load(response.read().decode("utf-8")) or {}
+        except (OSError, yaml.YAMLError) as exc:
+            raise WatcherError(f"could not load alert patterns from {url}: {exc}") from exc
+        if not isinstance(loaded, dict):
+            raise WatcherError(f"alert patterns from {url} must be a YAML mapping")
+        yaml_cache[url] = loaded
+    return yaml_cache[url]
+
+
 def patterns_for_alert(alert: dict[str, Any], yaml_cache: dict[str, dict[str, Any]]) -> list[str]:
     if alert.get("type", "paths") == "paths":
         patterns = alert.get("patterns", [])
@@ -224,13 +253,9 @@ def patterns_for_alert(alert: dict[str, Any], yaml_cache: dict[str, dict[str, An
         url = alert.get("url")
         if not url:
             raise WatcherError("yaml_section alert is missing url")
-        if url not in yaml_cache:
-            try:
-                with urlopen(url, timeout=REQUEST_TIMEOUT_SECONDS) as response:
-                    yaml_cache[url] = yaml.safe_load(response.read().decode("utf-8")) or {}
-            except (OSError, yaml.YAMLError) as exc:
-                raise WatcherError(f"could not load alert patterns from {url}: {exc}") from exc
-        section = yaml_cache[url].get(alert.get("section"), {})
+        section = fetch_yaml(url, yaml_cache).get(alert.get("section"), {})
+        if not isinstance(section, dict):
+            raise WatcherError(f"YAML section {alert.get('section')} must be a mapping")
         patterns = section.get(alert.get("files_key", "files"), [])
     else:
         raise WatcherError(f"unsupported alert type: {alert.get('type')}")
@@ -259,13 +284,15 @@ def recipient_file_map(
     return {recipient: sorted(files) for recipient, files in recipient_files.items()}
 
 
+# Email delivery
+
 def email_provider(from_email: str) -> tuple[str, str, str]:
     _, address = parseaddr(from_email)
     address = address or from_email.strip()
     domain = address.rpartition("@")[2].lower()
     if not domain:
         raise WatcherError("FROM_EMAIL must contain an email address")
-    if domain in {"gmail.com", "googlemail.com"}:
+    if domain in GMAIL_DOMAINS:
         return "Gmail", "smtp.gmail.com", address
     return "Resend", "smtp.resend.com", "resend"
 
@@ -303,7 +330,20 @@ def message_for(pr: dict[str, Any], files: list[str]) -> tuple[str, str]:
     return subject, text
 
 
+def send_pr_alerts(
+    pr: dict[str, Any], recipient_files: dict[str, list[str]], from_email: str, api_key: str
+) -> None:
+    print(f"PR #{pr['number']}: match found — alerting {len(recipient_files)} recipient(s)")
+    for recipient, files in recipient_files.items():
+        subject, text = message_for(pr, files)
+        send_email(from_email, api_key, recipient, subject, text)
+        print(f"  Email sent to {recipient}")
+
+
+# Main workflow
+
 def run(config_path: Path) -> None:
+    # Nothing writes state while processing. This makes a failed run retryable.
     config = load_yaml_file(config_path)
     from_email = require_env("FROM_EMAIL")
     api_key = require_env("EMAIL_API_KEY")
@@ -322,6 +362,7 @@ def run(config_path: Path) -> None:
     processed = 0
     completed_search = True
 
+    # Results are oldest-first, allowing the cursor to resume cleanly after a cap.
     print(f"Checking new PRs in {config['repo']} (limit: {max_prs})")
     for summary in newly_created_prs(config["repo"], created_since, github_token):
         if processed >= max_prs:
@@ -348,21 +389,16 @@ def run(config_path: Path) -> None:
             print(f"PR #{number}: no match")
             continue
 
-        print(f"PR #{number}: match found — alerting {len(recipients)} recipient(s)")
-        for recipient, files in recipients.items():
-            subject, text = message_for(detail, files)
-            send_email(from_email, api_key, recipient, subject, text)
-            print(f"  Email sent to {recipient}")
-
         # Only mark a PR after every recipient accepted the message.
+        send_pr_alerts(detail, recipients, from_email, api_key)
         alerted.add(str(number))
 
     if completed_search:
         next_created_since = latest_created or utc_now()
     else:
         next_created_since = latest_created or created_since
-    # State is written only after the entire run succeeds. A delivery failure above
-    # exits before this point, leaving alerted/ untouched and uncommitted.
+    # This is the only state write. A delivery failure above exits before here,
+    # leaving alerted/ untouched, so Actions has nothing to commit.
     save_state(alerted_file, last_run_file, alerted, next_created_since)
     print(f"Progress saved — creation cursor: {next_created_since}")
 

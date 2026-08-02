@@ -1,20 +1,29 @@
 # github-watcher
 
-A scheduled GitHub Actions watcher for newly created PRs. It emails the owners of configured file patterns, once per PR.
-
-The implementation is deliberately small: one Python script, one watcher config, one workflow, and text state files.
+A scheduled watcher for newly created PRs. It emails the owners of configured file patterns, once per PR.
 
 ```text
-scripts/check_prs.py                     # all runtime behavior
-configs/zephyr-upstream-config.yml       # repository and watched paths
-.github/workflows/zephyr-upstream-workflow.yml
-alerted/zephyr-upstream-alerted.txt       # alerted PR numbers, one per line
-alerted/zephyr-upstream-last-run.txt      # new-PR creation cursor
+scripts/check_prs.py                        # script behavior
+configs/zephyr-upstream-config.yml          # repository and watched paths
+.github/workflows/zephyr-upstream-workflow.yml # schedule, secrets, commit
+alerted/zephyr-upstream-alerted.txt          # alerted PR numbers
+alerted/zephyr-upstream-last-run.txt         # creation-time cursor
 ```
 
-## Runtime configuration
+## GitHub Actions workflow
 
-The workflow supplies four environment variables:
+The workflow is responsible for scheduling the script, installing its two dependencies, providing secrets, and committing changed files under `alerted/` after a successful run. It needs `contents: write` permission for that final commit.
+
+For the Zephyr watcher, configure these repository secrets:
+
+| Secret | Required | Purpose |
+|---|---:|---|
+| `ZEPHYR_UPSTREAM_EMAIL_API_KEY` | Yes | Resend API key or Gmail SMTP app password. |
+| `ZEPHYR_UPSTREAM_FROM_EMAIL` | Yes | Sender address. |
+| `ZEPHYR_UPSTREAM_RECEIVER_EMAILS` | Yes | YAML recipient-group mapping. |
+| `ZEPHYR_UPSTREAM_GITHUB_TOKEN` | No | Increases GitHub API capacity. |
+
+The workflow maps those repository-specific secrets to the generic names the script expects:
 
 ```yaml
 EMAIL_API_KEY: ${{ secrets.ZEPHYR_UPSTREAM_EMAIL_API_KEY }}
@@ -23,7 +32,25 @@ RECEIVER_EMAILS: ${{ secrets.ZEPHYR_UPSTREAM_RECEIVER_EMAILS }}
 GITHUB_TOKEN: ${{ secrets.ZEPHYR_UPSTREAM_GITHUB_TOKEN }}
 ```
 
-`EMAIL_API_KEY` is used as the SMTP password. `GITHUB_TOKEN` is optional, but increases the GitHub API limit.
+To add another watcher, copy the workflow and config, use a different config filename, and give it its own secret names. The filename determines the `alerted/<name>-*.txt` state files.
+
+## Script
+
+Run the script from the repository root:
+
+```bash
+python -m pip install PyYAML redmail
+python scripts/check_prs.py configs/zephyr-upstream-config.yml
+```
+
+The script needs these environment variables:
+
+| Variable | Required | Purpose |
+|---|---:|---|
+| `EMAIL_API_KEY` | Yes | SMTP password: a Resend API key or Gmail app password. |
+| `FROM_EMAIL` | Yes | Sender address used for provider detection. |
+| `RECEIVER_EMAILS` | Yes | YAML mapping referenced by the watcher config. |
+| `GITHUB_TOKEN` | No | GitHub token for a higher API limit. |
 
 Email delivery uses Redmail. The sender address chooses the provider automatically:
 
@@ -38,15 +65,8 @@ For Gmail, set `EMAIL_API_KEY` to the SMTP app password/auth secret. For Resend,
 TI_GENERAL_LIST: alice@example.com; bob@example.com
 ```
 
-## Behavior
+Watcher configs reference a group as `emails: $TI_GENERAL_LIST`. They may contain direct path patterns or obtain patterns from a section of an external YAML file; [zephyr-upstream-config.yml](/configs/zephyr-upstream-config.yml) shows both forms.
 
 The script queries only PRs created after the saved cursor. A later update to an existing PR does not send another email.
 
 For each new matching PR, it sends all required messages first. It records the PR number in `alerted/*.txt` only after every send succeeds. If a send fails, it prints an error, exits nonzero, and writes no state; the workflow therefore commits nothing and retries that PR next run.
-
-Run locally after installing dependencies:
-
-```bash
-python -m pip install PyYAML redmail
-python scripts/check_prs.py configs/zephyr-upstream-config.yml
-```
